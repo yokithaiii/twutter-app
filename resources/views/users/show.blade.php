@@ -27,14 +27,14 @@
                                     <a href="{{ route('messages.chat', $user->id) }}" class="btn btn-primary">Написать сообщение</a>
                                 </div>
                                 <div class="mb-2 text-dark">
-                                    <a href="{{ route('users.index') }}" class="card-link">Назад</a>
+                                    <a href="{{ route('users.index') }}" class="btn btn-danger">Назад</a>
                                 </div>
                             @else
                                 <div class="mb-2 text-dark">
                                     <span class="text-info">Это вы</span>
                                 </div>
                                 <div class="mb-2 text-dark">
-                                    <a href="{{ route('users.index') }}" class="card-link">Назад</a>
+                                    <a href="{{ route('users.index') }}" class="btn btn-danger">Назад</a>
                                 </div>
                             @endif
                         </div>

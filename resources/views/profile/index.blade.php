@@ -12,7 +12,7 @@
                             @method('patch')
                             <div class="mb-3 text-dark">
                                 <label for="image" class="form-label d-flex">
-                                    <img style="width: 18rem;" class="rounded-circle mx-auto d-block" src="/storage/{{ $profile->avatar }}" alt="">
+                                    <img style="width: 18rem; height: 18rem;" class="rounded-circle mx-auto d-block" src="/storage/{{ $profile->avatar }}" alt="">
                                 </label>
                                 <input name="image" type="file" class="form- d-none" id="image">
                             </div>
@@ -26,6 +26,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-success">Сохранить</button>
+                            <a class="btn btn-danger" href="{{ route('home') }}">Выйти</a>
                         </form>
                     </div>
                 </div>

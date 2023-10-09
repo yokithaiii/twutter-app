@@ -5,7 +5,12 @@
         <div class="row justify-content-center">
             <div class="">
                 <div class="card">
-                    <div class="card-header">Комната с <a href="javascript:void(0)">{{ $roomArr->user_to_id->name }}</a></div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div>
+                            Комната с <a href="{{ route('users.show', $roomArr->user_to_id->id) }}">{{ $roomArr->user_to_id->name }}</a>
+                        </div>
+                        <a href="{{ route('messages.index') }}">Назад</a>
+                    </div>
                     <div class="card-body">
                             <div class="pt-3 pe-3 perfect-scrollbar ps ps--active-y" data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
 

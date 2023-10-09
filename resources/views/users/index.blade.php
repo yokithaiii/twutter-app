@@ -12,7 +12,7 @@
                                 @if($user->id != Auth::user()->id)
                                     <li class="nav-item mb-4">
                                         <a href="{{ route('users.show', $user->id) }}" class="text-primary text-decoration-none d-flex align-items-center" style="gap: 10px;">
-                                            <img src="/storage/{{ $user->avatar }}" alt="mdo" width="32" height="32" class="rounded-circle">
+                                            <img src="/storage/{{ $user->avatar }}" alt="mdo" width="60" height="60" class="rounded-circle">
                                             {{ $user->name }}
                                         </a>
                                     </li>
