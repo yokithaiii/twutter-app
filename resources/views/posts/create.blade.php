@@ -15,6 +15,6 @@
             <input name="image" type="file" class="form-control" id="image">
         </div>
         <button type="submit" class="btn btn-primary">Добавить пост</button>
-        <a href="{{ route('home') }}" class="btn btn-danger">Отменить</a>
+        <a href="{{ route('home') }}" class="btn btn-danger" style="margin-left: 10px;">Отменить</a>
     </form>
 @endsection

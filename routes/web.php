@@ -24,7 +24,7 @@ Route::post('/posts', 'App\Http\Controllers\PostController@store')->name('post.s
 Route::get('/posts/{post}', 'App\Http\Controllers\PostController@show')->name('post.show');
 Route::post('/posts/like/{post}', 'App\Http\Controllers\PostController@like')->name('post.like');
 
-Route::get('/contacts', 'App\Http\Controllers\ContactsController@index')->name('contacts.index');
+//Route::get('/contacts', 'App\Http\Controllers\ContactsController@index')->name('contacts.index');
 
 Route::get('/profile', 'App\Http\Controllers\ProfileController@index')->name('profile.index');
 Route::patch('/profile/{user}', 'App\Http\Controllers\ProfileController@editProfile')->name('profile.edit');
@@ -36,10 +36,14 @@ Route::get('/users', 'App\Http\Controllers\UsersController@index')->name('users.
 Route::get('/users/{id}', 'App\Http\Controllers\UsersController@show')->name('users.show');
 
 Route::controller(\App\Http\Controllers\ChatController::class)->group(function () {
-   Route::get('/messages', 'index')->name('messages.index');
-   Route::get('/messages/roomId={id}', 'chat')->name('messages.chat');
-   Route::get('/messages/chatId={id}', 'room')->name('messages.room');
-   Route::post('/messages/send', 'send');
+    Route::get('/messages', 'index')->name('messages.index');
+    Route::get('/messages/roomId={id}', 'chat')->name('messages.chat');
+    Route::get('/messages/chatId={id}', 'room')->name('messages.room');
+    Route::post('/messages/send', 'send');
 });
 
-
+Route::middleware('auth')->group(function () {
+    Route::get('/contacts', [\App\Http\Controllers\MessageController::class, 'index'])->name('contacts.index');
+    Route::post('/contacts', [\App\Http\Controllers\MessageController::class, 'store']);
+});
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
