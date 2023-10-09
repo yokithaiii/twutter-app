@@ -18,6 +18,9 @@ class MessageResource extends JsonResource
             'id' => $this->id,
             'body' => $this->body,
             'time' => $this->created_at->diffForHumans(),
+            'room_id' => $this->room_id,
+            'user_id_sender' => $this->user_id_sender,
+            'user_id_receiver' => $this->user_id_receiver,
         ];
     }
 }

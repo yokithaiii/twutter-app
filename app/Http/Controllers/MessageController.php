@@ -12,14 +12,25 @@ class MessageController extends Controller
     public function index() {
         $messages = Message::latest()->get();
         $messages = MessageResource::collection($messages)->resolve();
-        return view('contacts.index', compact('messages'));
+        return view('chat.room', compact('messages'));
     }
 
-    public function store(StoreRequest $request) {
-        $data = $request->validated();
-
-        $message = Message::create($data);
-
-        return MessageResource::make($message)->resolve();
+    public function room($roomId) {
+//        dd('room');
     }
+
+//    public function store(StoreRequest $request) {
+//        $data = $request->validated();
+//        $user_sender = auth()->user();
+//        $user_receiver = 11;
+//        $message = Message::create([
+//            'body' => $data['body'],
+//            'room_id' => 1,
+//            'user_id_sender' => $user_sender->id,
+//            'user_id_receiver' => $user_receiver,
+//        ]);
+//
+//        return MessageResource::make($message)->resolve();
+//    }
+
 }

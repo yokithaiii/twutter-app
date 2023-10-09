@@ -37,13 +37,11 @@ Route::get('/users/{id}', 'App\Http\Controllers\UsersController@show')->name('us
 
 Route::controller(\App\Http\Controllers\ChatController::class)->group(function () {
     Route::get('/messages', 'index')->name('messages.index');
-    Route::get('/messages/roomId={id}', 'chat')->name('messages.chat');
+    Route::get('/messages/roomId={id}', 'roomCreate')->name('messages.chat');
     Route::get('/messages/chatId={id}', 'room')->name('messages.room');
-    Route::post('/messages/send', 'send');
+    Route::post('/messages/send', 'store')->name('messages.store');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/contacts', [\App\Http\Controllers\MessageController::class, 'index'])->name('contacts.index');
-    Route::post('/contacts', [\App\Http\Controllers\MessageController::class, 'store']);
-});
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/chat', [\App\Http\Controllers\MessageController::class, 'index'])->name('chat.name');
+Route::get('/chat/room={{id}}', [\App\Http\Controllers\MessageController::class, 'room'])->name('chat.room');
+Route::post('/chat/store', [\App\Http\Controllers\MessageController::class, 'store'])->name('chat.store');
