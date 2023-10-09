@@ -41,5 +41,5 @@ Route::controller(\App\Http\Controllers\ChatController::class)->group(function (
    Route::get('/messages/chatId={id}', 'room')->name('messages.room');
    Route::post('/messages/send', 'send');
 });
-//Route::get('/messages', [\App\Http\Controllers\ChatController::class, 'index'])->name('messages.index');
+
 
