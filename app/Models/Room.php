@@ -10,8 +10,8 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_1_id',
-        'user_2_id',
+        'user_me_id',
+        'user_to_id',
     ];
     protected $table = 'chats';
 
