@@ -18,14 +18,22 @@ class ProfileController extends Controller
         $data = \request()->validate([
             'fio' => 'string',
             'login' => 'string',
-            'image' => 'required',
+            'image' => 'file'
         ]);
-        $image = $data['image']->store('uploads', 'public');
-        $user->update([
-            'name' => $data['fio'],
-            'email' => $data['login'],
-            'avatar' => $image,
-        ]);
+        if (isset($data['image'])) {
+            $image = $data['image']->store('uploads', 'public');
+            $user->update([
+                'name' => $data['fio'],
+                'email' => $data['login'],
+                'avatar' => $image,
+            ]);
+        } else {
+            $user->update([
+                'name' => $data['fio'],
+                'email' => $data['login'],
+            ]);
+        }
+
         return redirect()->route('profile.index');
     }
 

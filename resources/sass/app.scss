@@ -6,3 +6,12 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+
+.card-body label[for="image"]:hover {
+    cursor: pointer;
+    background: #5e5e5e;
+    img {
+        opacity: .5;
+    }
+}

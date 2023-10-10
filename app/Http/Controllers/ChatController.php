@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
+use App\Events\StoreMessageEvent;
 use App\Http\Requests\Message\StoreRequest;
 use App\Http\Requests\messageformrequest;
 use App\Http\Resources\Message\MessageResource;
@@ -105,8 +106,8 @@ class ChatController extends Controller
 
         $info = [
             'roomId' => $room,
-            'me' => $sender->id,
-            'me_avatar' => $sender->avatar,
+            'sender_id' => $sender->id,
+            'sender_avatar' => $sender->avatar,
             'receiver_avatar' => $receiver->avatar,
         ];
 
@@ -125,6 +126,8 @@ class ChatController extends Controller
             'user_id_sender' => $user_sender->id,
             'user_id_receiver' => $roomArr->user_to_id->id,
         ]);
+
+        broadcast(new StoreMessageEvent($message))->toOthers();
 
         return MessageResource::make($message)->resolve();
     }

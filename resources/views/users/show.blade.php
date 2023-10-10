@@ -24,7 +24,7 @@
                             @if($user->id != Auth::user()->id)
                                 <div class="mb-2 text-dark">
                                     <a href="#" class="btn btn-primary">Добавить в друзья</a>
-                                    <a href="{{ route('messages.chat', $user->id) }}" class="btn btn-primary">Написать сообщение</a>
+                                    <a href="{{ route('messages.chat', $user->id) }}" class="btn btn-primary" style="margin-left: 5px;">Написать сообщение</a>
                                 </div>
                                 <div class="mb-2 text-dark">
                                     <a href="{{ route('users.index') }}" class="btn btn-danger">Назад</a>

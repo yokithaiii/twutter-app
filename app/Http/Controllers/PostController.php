@@ -40,16 +40,25 @@ class PostController extends Controller
         $data = \request()->validate([
             'title' => 'string',
             'content' => 'string',
-            'image' => 'required',
+            'image' => 'file',
             'userId' => 'string',
         ]);
-        $image = $data['image']->store('uploads', 'public');
-        Post::create([
-            'title' => $data['title'],
-            'post_content' => $data['content'],
-            'image' => $image,
-            'userId' => $userId->id,
-        ]);
+        if (isset($data['image'])) {
+            $image = $data['image']->store('uploads', 'public');
+            Post::create([
+                'title' => $data['title'],
+                'post_content' => $data['content'],
+                'image' => $image,
+                'userId' => $userId->id,
+            ]);
+        } else {
+            Post::create([
+                'title' => $data['title'],
+                'post_content' => $data['content'],
+                'userId' => $userId->id,
+            ]);
+        }
+
         return redirect()->route('home');
     }
 

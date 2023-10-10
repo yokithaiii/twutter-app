@@ -14,6 +14,7 @@
                                 <label for="image" class="form-label d-flex">
                                     <img style="width: 18rem; height: 18rem;" class="rounded-circle mx-auto d-block" src="/storage/{{ $profile->avatar }}" alt="">
                                 </label>
+                                <p class="small text-muted">Нажмите на картинку чтобы изменить аватар</p>
                                 <input name="image" type="file" class="form- d-none" id="image">
                             </div>
                             <div class="mb-3 text-dark">
@@ -26,7 +27,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-success">Сохранить</button>
-                            <a class="btn btn-danger" href="{{ route('home') }}">Выйти</a>
+                            <a class="btn btn-danger" href="{{ route('home') }}" style="margin-left: 5px;">Выйти</a>
                         </form>
                     </div>
                 </div>
