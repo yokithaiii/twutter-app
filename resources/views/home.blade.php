@@ -26,12 +26,19 @@
                         <div class="d-flex align-items-center" style="gap: 10px;">
                             <form action="{{ route('post.like', $post->id) }}" method="post">
                                 @csrf
-                                <button class="btn btn-danger" type="submit">Нравится</button>
+                                @if ($post->isLikedBy(auth()->user()))
+                                    <button class="btn btn-danger" type="submit">Убрать лайк</button>
+                                @else
+                                    <button class="btn btn-success" type="submit">Нравится</button>
+                                @endif
                             </form>
-
-                            <a href="#">
-                                <img src="/storage/{{ $post->likes_avatar }}" title="{{ $post->likes_name }}" class="rounded-circle" style="width: 25px;">
-                            </a>
+                            <div class="likes">
+                                @foreach($post['likes'] as $likes)
+                                    <a href="{{ route('users.index') }}/{{ $likes->user_id }}" title="{{ $likes->user_name }}">
+                                        <img src="/storage/{{ $likes->user_avatar }}" class="rounded-circle" style="width: 25px; height: 25px;">
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -16,6 +16,9 @@ class PostController extends Controller
             $userInfo = User::find($post->userId);
             $posts[$key]['user_name'] = $userInfo->name;
             $posts[$key]['user_avatar'] = $userInfo->avatar;
+            $posts[$key]['user_id'] = $userInfo->id;
+            $likes = Likes::where('post_id', $post->id)->get();
+            $posts[$key]['likes'] = $likes;
         }
         return view('home', compact('posts'));
     }
@@ -32,7 +35,7 @@ class PostController extends Controller
     public function delete($id) {
         $post = Post::find($id);
         $post->delete($id);
-        return redirect()->route('home');
+        return redirect()->route('profile.index');
     }
 
     public function store() {
@@ -72,13 +75,22 @@ class PostController extends Controller
     }
 
     public function like(Post $post) {
-        $userId = auth()->user();
-        if ($userId->id)
-        Likes::updateOrCreate([
-            'post_id' => $post->id,
-            'user_id' => $userId->id,
-        ]);
-        $likes[$post->id] = $userId->id;
+        $userId = auth()->id();
+        $like = Likes::where('post_id', $post->id)
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($like) {
+            $like->delete();
+        } else {
+            Likes::create([
+                'post_id' => $post->id,
+                'user_id' => $userId,
+                'user_name' => auth()->user()->name,
+                'user_avatar' => auth()->user()->avatar,
+            ]);
+        }
+
         return redirect()->route('home');
     }
 

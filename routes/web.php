@@ -12,28 +12,31 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
-
-Route::get('/posts', 'App\Http\Controllers\PostController@index')->name('posts.index');
-Route::get('/posts/create', 'App\Http\Controllers\PostController@create')->name('post.create');
-Route::get('/posts/update/{post}', 'App\Http\Controllers\PostController@update')->name('post.update');
-Route::get('/posts/delete/{post}', 'App\Http\Controllers\PostController@delete')->name('post.delete');
-
-Route::post('/posts', 'App\Http\Controllers\PostController@store')->name('post.store');
-Route::get('/posts/{post}', 'App\Http\Controllers\PostController@show')->name('post.show');
-Route::post('/posts/like/{post}', 'App\Http\Controllers\PostController@like')->name('post.like');
-
-//Route::get('/contacts', 'App\Http\Controllers\ContactsController@index')->name('contacts.index');
-
-Route::get('/profile', 'App\Http\Controllers\ProfileController@index')->name('profile.index');
-Route::patch('/profile/{user}', 'App\Http\Controllers\ProfileController@editProfile')->name('profile.edit');
-
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/users', 'App\Http\Controllers\UsersController@index')->name('users.index');
-Route::get('/users/{id}', 'App\Http\Controllers\UsersController@show')->name('users.show');
+Route::controller(\App\Http\Controllers\HomeController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+});
+
+Route::controller(\App\Http\Controllers\PostController::class)->group(function () {
+    Route::get('/posts', 'index')->name('posts.index');
+    Route::get('/posts/create', 'create')->name('post.create');
+    Route::get('/posts/update/{post}', 'update')->name('post.update');
+    Route::get('/posts/delete/{post}', 'delete')->name('post.delete');
+    Route::get('/posts/{post}', 'show')->name('post.show');
+    Route::post('/posts', 'store')->name('post.store');
+    Route::post('/posts/like/{post}', 'like')->name('post.like');
+});
+
+Route::controller(\App\Http\Controllers\ProfileController::class)->group(function () {
+    Route::get('/profile', 'index')->name('profile.index');
+    Route::patch('/profile/{user}', 'editProfile')->name('profile.edit');
+});
+
+Route::controller(\App\Http\Controllers\UsersController::class)->group(function () {
+    Route::get('/users', 'index')->name('users.index');
+    Route::get('/users/{id}', 'show')->name('users.show');
+});
 
 Route::controller(\App\Http\Controllers\ChatController::class)->group(function () {
     Route::get('/messages', 'index')->name('messages.index');
@@ -42,6 +45,15 @@ Route::controller(\App\Http\Controllers\ChatController::class)->group(function (
     Route::post('/messages/send', 'store')->name('messages.store');
 });
 
-Route::get('/chat', [\App\Http\Controllers\MessageController::class, 'index'])->name('chat.name');
-Route::get('/chat/room={{id}}', [\App\Http\Controllers\MessageController::class, 'room'])->name('chat.room');
-Route::post('/chat/store', [\App\Http\Controllers\MessageController::class, 'store'])->name('chat.store');
+Route::controller(\App\Http\Controllers\MessageController::class)->group(function () {
+    Route::get('/chat', 'index')->name('chat.name');
+    Route::get('/chat/room={{id}}', 'room')->name('chat.room');
+    Route::post('/chat/store', 'store')->name('chat.store');
+});
+
+Route::controller(\App\Http\Controllers\FriendsController::class)->group(function () {
+    Route::get('/friends', 'index')->name('friends.index');
+    Route::get('/friends/add={id}', 'add')->name('friends.add');
+    Route::get('/friends/requests', 'requests')->name('friends.requests');
+    Route::get('/friends/confirm={id}', 'confirm')->name('friends.confirm');
+});

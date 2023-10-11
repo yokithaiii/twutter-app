@@ -37,6 +37,9 @@
                         <li>
                             <a class="nav-link px-2 text-white" href="{{ route('messages.index') }}">Сообщения</a>
                         </li>
+                        <li>
+                            <a class="nav-link px-2 text-white" href="{{ route('friends.index') }}">Друзья</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

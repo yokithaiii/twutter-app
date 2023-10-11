@@ -31,6 +31,31 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">Мои посты</div>
+                    <div class="card-body">
+                        @foreach($posts->sortByDesc('created_at') as $post)
+                            <div class="col card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $post->title }}</h5>
+                                    <p class="card-text">{{ $post->post_content }}</p>
+                                    <div class="d-flex mb-3">
+                                        <img class="rounded" src="/storage/{{ $post->image }}" alt="" style="width: 100%;">
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-end">
+                                        <div>
+                                            <small class="text-muted">{{ $post->created_at->format('H:i d.m.y') }}</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-end mt-1">
+                                        <a class="btn btn-danger" href="{{ route('post.delete', $post->id) }}">Удалить пост</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Likes;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -31,7 +32,10 @@ class HomeController extends Controller
             $posts[$key]['user_name'] = $userInfo->name;
             $posts[$key]['user_avatar'] = $userInfo->avatar;
             $posts[$key]['user_id'] = $userInfo->id;
+            $likes = Likes::where('post_id', $post->id)->get();
+            $posts[$key]['likes'] = $likes;
         }
+//        dd($posts);
         return view('home', compact('posts'));
     }
 }

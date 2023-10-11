@@ -10,7 +10,8 @@ class ProfileController extends Controller
 {
     public function index() {
         $profile = auth()->user();
-        return view('profile.index', compact('profile'));
+        $posts = Post::where('userId', auth()->id())->get();
+        return view('profile.index', compact('profile', 'posts'));
     }
 
     public function editProfile($id) {
