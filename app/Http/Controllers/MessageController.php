@@ -19,18 +19,4 @@ class MessageController extends Controller
 //        dd('room');
     }
 
-//    public function store(StoreRequest $request) {
-//        $data = $request->validated();
-//        $user_sender = auth()->user();
-//        $user_receiver = 11;
-//        $message = Message::create([
-//            'body' => $data['body'],
-//            'room_id' => 1,
-//            'user_id_sender' => $user_sender->id,
-//            'user_id_receiver' => $user_receiver,
-//        ]);
-//
-//        return MessageResource::make($message)->resolve();
-//    }
-
 }

@@ -8,13 +8,15 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $profile = auth()->user();
         $posts = Post::where('userId', auth()->id())->get();
         return view('profile.index', compact('profile', 'posts'));
     }
 
-    public function editProfile($id) {
+    public function editProfile($id)
+    {
         $user = User::find($id);
         $data = \request()->validate([
             'fio' => 'string',

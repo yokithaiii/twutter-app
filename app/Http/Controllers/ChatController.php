@@ -24,7 +24,9 @@ class ChatController extends Controller
             $user_1 = User::find($chat->user_me_id);
             $user_2 = User::find($chat->user_to_id);
             if (auth()->user() == $user_1) {
-
+                //Примерно таких условий много по проекту
+                //так как не знал про отношения и связи между таблицами
+                //пытаюсь найти себя в user_1 или user_2
                 $latestMessageIds = Message::where('room_id', $chat->id)
                     ->orderBy('created_at', 'desc')
                     ->first();
@@ -57,7 +59,6 @@ class ChatController extends Controller
             }
         }
 
-//        dd($arr);
         usort($arr, function($a, $b) {
             return strtotime($b['last_message_time']) - strtotime($a['last_message_time']);
         });
@@ -65,8 +66,9 @@ class ChatController extends Controller
         return view('messages.index', compact('arr'));
     }
 
-    //Создаем комнату с юзером если не существует комната с ним --доделать не работает
-    public function roomCreate($id) {
+    //Создаем комнату с юзером если не существует комната с ним
+    public function roomCreate($id)
+    {
         $userId = auth()->user();
         $room = Room::firstOrCreate([
             'user_me_id' => $userId->id,
@@ -76,7 +78,8 @@ class ChatController extends Controller
     }
 
     //Комната с юзером
-    public function room($room) {
+    public function room($room)
+    {
         //Получаем все сообщения с roomId
         $messages = Message::where('room_id', $room)->orderBy('created_at', 'asc')->get();
         $messages = MessageResource::collection($messages)->resolve();
@@ -88,7 +91,8 @@ class ChatController extends Controller
         $user_1 = User::find($roomArr->user_me_id);
         $user_2 = User::find($roomArr->user_to_id);
 
-        //условия в котором проверяем входим ли Мы в участниках --доделать хуйня условие может сломаться
+        //условия в котором проверяем входим ли Мы в участниках
+        //вот тут тоже можно было реализовать по проще мне кажется
         if (auth()->user() == $user_1) {
             $roomArr['user_me_id'] = $user_1;
             $roomArr['user_to_id'] = $user_2;
@@ -115,14 +119,14 @@ class ChatController extends Controller
         return view('messages.room', compact('roomArr', 'messages', 'info'));
     }
 
-    public function store(StoreRequest $request) {
-
+    public function store(StoreRequest $request)
+    {
         $roomArr = session('roomArr');
         $data = $request->validated();
         $user_sender = auth()->user();
         $message = Message::create([
             'body' => $data['body'],
-            'room_id' => $roomArr->id,
+            'room_id' => $roomArr->id, //тут вопрос к Вам Михаил, почему высвечивает id? Лучше сделать наверное auth()->id() просто?
             'user_id_sender' => $user_sender->id,
             'user_id_receiver' => $roomArr->user_to_id->id,
         ]);

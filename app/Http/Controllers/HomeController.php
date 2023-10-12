@@ -35,7 +35,6 @@ class HomeController extends Controller
             $likes = Likes::where('post_id', $post->id)->get();
             $posts[$key]['likes'] = $likes;
         }
-//        dd($posts);
         return view('home', compact('posts'));
     }
 }

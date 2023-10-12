@@ -10,7 +10,8 @@ use Illuminate\Support\Collection;
 
 class PostController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $posts = Post::all();
         foreach ($posts as $key => $post) {
             $userInfo = User::find($post->userId);
@@ -23,22 +24,26 @@ class PostController extends Controller
         return view('home', compact('posts'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('posts.create');
     }
 
-    public function update($id) {
+    public function update($id)
+    {
         $post = Post::find($id);
         dd('updated');
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $post = Post::find($id);
         $post->delete($id);
         return redirect()->route('profile.index');
     }
 
-    public function store() {
+    public function store()
+    {
         $userId = auth()->user();
         $data = \request()->validate([
             'title' => 'string',
@@ -65,7 +70,8 @@ class PostController extends Controller
         return redirect()->route('home');
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $post = Post::findOrFail($id);
         $userInfo = User::find($post->userId);
         $post['user_name'] = $userInfo->name;
@@ -74,7 +80,8 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
-    public function like(Post $post) {
+    public function like(Post $post)
+    {
         $userId = auth()->id();
         $like = Likes::where('post_id', $post->id)
             ->where('user_id', $userId)
