@@ -12,6 +12,7 @@ class FriendsController extends Controller
     public function index()
     {
         $friendsAll = Friends::all();
+        $friends = [];
         foreach ($friendsAll as $key => $item) {
             if ($item->user_1 != auth()->id() && $item->user_2 == auth()->id()) {
                 $friend = $item->user_1;
